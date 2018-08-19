@@ -1,0 +1,27 @@
+# Gerdts, M. (2008a). Global convergence of a nonsmooth Newton method for control-
+# state constrained optimal control problems. SIAM Journal of Optimization, 19(1),
+# 326--350.
+# Maurer Tutorial on control and state constrained optimal control
+#
+
+StateVariables           = [y1, y2];
+ControlVariables         = [u1];
+
+InitialTime              = 0.0;
+FinalTime                = 4.5;
+
+InitialConstraints       = [y1 + 5, y2 + 5];
+TerminalConstraints      = [y1, y2];
+CostFunctional           = y1*y1 + u1*u1;
+
+DifferentialEquations    = [y2, -y1 + y2*(1.4-0.14*y2*y2) + 4.0*u1];
+InequalityConstraints    = [u1 -1, -1 - u1];
+
+StateEstimate            = [-5 + t, -5 + t];
+ControlEstimate          = [1.0 - 0.2*t];
+
+Nodes                    = 451;
+Tolerance                = 1.0e-6;
+OutputFile               = "ex111a.data";
+Display                  = NO;
+MaximumNodes             = 2000;

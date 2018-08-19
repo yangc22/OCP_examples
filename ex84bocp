@@ -1,0 +1,35 @@
+#C. Buskens and H. Maurer,
+#Sensitivity Analysis and Real-Time Control of
+#Nonlinear Optimal Control Systems via
+#Nonlinear Programming Methods,
+#International Series of Numerical Mathematics,
+#Vol.124, pp. 185--195, 1998.
+
+Constants                = [r = 0.2,J = 0.05, m = 2.2, g = 4.0 / 2.2,mu = 10.0,fac = 3.141592654 / 180.0];
+Variables               = [T];
+StateVariables          = [y1, y2, y3, y4, y5, y6];
+ControlVariables        = [u1, u2, u3];
+ParameterVariables      = [p1];
+InitialTime             = 0.0;
+FinalTime               = 1.0;
+
+T = (1+p1);
+
+InitialConstraints      = [y1, y2, y3, y4, y5, y6];
+
+TerminalPenalty         = (y2*y2 + y3*y3 + y4*y4 + y5*y5 + y6*y6);
+TerminalConstraints      = [y1 - 1];  
+
+CostFunctional           = (1+p1)*(1 + 10.0*(u1*u1 + u2*u2 + u3*u3));
+
+DifferentialEquations   = [y4 * (1+p1), y5 * (1+p1), y6 * (1+p1),(u1 * cos(u3) - u2 * sin(u3)) * (1+p1) / m,(-m * g + u1 * sin(u3) + u2 * cos(u3)) * (1+p1) / m,(r * u1) * (1+p1) / J];
+
+#InequalityConstraints   = [u1 - 5, -5-u1, u2-17, -u2, u3-30*fac, -30*fac - u3];
+
+ParameterEstimate      = [0];
+Nodes                  = 101;
+Tolerance              = 1.0e-6;
+InputFile              = "ex84a.data";
+OutputFile             = "ex84b.data";
+Display                = NO;
+MaximumNodes           = 10000;

@@ -1,0 +1,29 @@
+
+Constants                = [g = -32.2, pi = 3.14159265358979, rho = 1.0];
+StateVariables           = [x1, x2, x3];
+ControlVariables         = [u];
+ParameterVariables       = [p];
+InitialConstraints       = [x1, x2 - 6.0, x3 - 1.0];
+#TerminalConstraints      = [x1 - 6.0];
+TerminalPenalty          = p+1;
+DifferentialEquations    = [(p+1)*x3*cos(u), (p+1)*x3*sin(u), (p+1)*g*sin(u)];
+#StateVariableInequalityConstraints = [-(x2+0.5*x1-5.0)];
+Nodes                   = 101;
+Tolerance                = 1.0e-6;
+Display                  = NO;
+MaximumMeshRefinements   = 20;
+MaximumNodes             = 2000;
+
+# run this problem first
+CostFunctional           = (p+1)*(rho +  u*u);
+StateEstimate            = [0, 6.0, 1];
+ControlEstimate          = [pi*0.125];
+ParameterEstimate        = [9];
+
+#InputFile                = "ex14.data";
+OutputFile               = "ex15a.data";
+
+# Comment the previous 4 commands, and uncomment the next 3 commands
+#TerminalPenalty          = p;
+#InputFile                = "ex15.data";
+#OutputFile               = "ex15p.data";

@@ -1,0 +1,25 @@
+# Junkins, J. L., and Turner, J. D., Optimal Continuous Torque Attitude Maneuvers,
+# Journal of Guidance, Control, and Dynamics,
+# Vol. 3, No. 3, pp. 210--217, 1980.
+
+Constants               = [rho = 5.0e1, I1=1.0e6, I2=833333.0, I3=916667.0, T1S=100, T2S=100, T3S=100, TM = 1.5];
+StateVariables          = [e1, e2, e3, e4, w1, w2, w3];
+ControlVariables        = [T1, T2, T3];
+ParameterVariables      = [p];
+InitialConstraints      = [e1, e2, e3, e4 - 1.0, w1 - 0.01, w2 - 0.005, w3 - 0.001];
+TerminalConstraints     = [e2 + 0.0923, e3 + 0.56098, e4 + 0.43047, w1, w2, w3];
+#TerminalPenalty         = 1.0e6*(w1*w1 + w2*w2 + w3*w3 + (e1-0.70106)*(e1-0.70106) + (e2-0.0923)*(e2-0.0923) + (e3-0.56098)*(e3-0.56098) + (e4-0.43047)*(e4-0.43047));
+CostFunctional          = (p+100)*(rho + T1*T1 + T2*T2 + T3*T3)*0.5;
+DifferentialEquations   = [0.5*(w1*e4 - w2*e3 + w3*e2)*(p+100),0.5*(w1*e3 + w2*e4 - w3*e1)*(p+100),0.5*(-w1*e2 + w2*e1 + w3*e4)*(p+100),-0.5*(w1*e1 + w2*e2 + w3*e3)*(p+100),(p+100)*((I2-I3)*w2*w3 + T1*T1S)/I1,(p+100)*((I3-I1)*w3*w1 + T2*T2S)/I2,(p+100)*((I1-I2)*w1*w2 + T3*T3S)/I3];
+InequalityConstraints   = [T1-TM, -TM-T1, T2-TM, -TM-T2, T3-TM, -TM-T3];
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+
+ParameterEstimate       = [0];
+
+InputFile               = "ex29.data";
+OutputFile              = "ex30.data";
+MaximumNodes            = 2000;
+Display                 = NO;
+MaximumNewtonIterations = 1000;
+MaximumMeshRefinements  = 20;

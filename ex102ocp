@@ -1,0 +1,24 @@
+# Jacobson, D. H, Lele, M. M. and Speyer, J. L. New necessary conditions of optimal control problems
+# with state-variable inequality constraints.
+
+StateVariables          = [x1, x2, x3, x4];
+ControlVariables        = [u];
+InitialConstraints      = [x1, x2-15.0/12.0, x3+15.0/12.0, x4-15.0/16.0];
+TerminalConstraints     = [x1, x2+15.0/12.0, x3+15.0/12.0, x4+15.0/16.0];
+CostFunctional          = 0.5*u*u;
+DifferentialEquations   = [x2, x3, x4, u];
+StateVariableInequalityConstraints = [x1 - 1];
+InitialTime             = 0.0;
+FinalTime               = 10.0;
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+
+OutputFile              = "ex102.data";
+MaximumNodes            = 1000;
+Display                 = NO;
+#MaximumNewtonIterations = 200;
+MaximumMeshRefinements  = 20;
+
+StateEstimate           = [t*(10-t),15.0/12.0 - 2.0*(t/10.0)*15.0/12.0,15.0/12.0,15.0/16.0 - 2.0*(t/10.0)*15.0/16.0];
+ControlEstimate         = [0.1];

@@ -1,0 +1,30 @@
+# check ref.: Gonzalez, Rodriguez Modified quasilinearization algorithm for optimal control problems with nondifferential constraints and general boundary conditions, 
+# Journal of Optimization Theory and Applications, 50 1986, pp. 109--128
+#
+Constants = [C = sqrt(1/7)];
+StateVariables          = [x1, x2];
+ParameterVariables      = [v1, v2, p];
+ControlVariables        = [u1];
+
+InitialTime             = 0;
+FinalTime               = 1;
+
+InitialConstraints      = [x1, x2 - 1 + v1, 0.35 - x2 + v2, x2 - p];           
+TerminalConstraints     = [x1-0.5];           
+TerminalPenalty         = p*p; #x2*x2;
+CostFunctional          = (2*x2*u1*u1*u1)/(1+u1*u1);
+
+DifferentialEquations   = [x2*x2, u1];
+InequalityConstraints   = [-u1, -v1, -v2];
+
+StateEstimate           = [(t*t*t + 3*t*t + 3*t), C*(t+1)];
+ControlEstimate         = [C];
+ParameterEstimate       = [1,1,1];
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex117.data";
+Display                 = NO;
+MaximumNewtonIterations = 500;
+MaximumNodes            = 2500;
+MaximumMeshRefinements  = 20;

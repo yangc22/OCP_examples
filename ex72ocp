@@ -1,0 +1,19 @@
+# Luus, R., 
+# Application of iterative dynamic to state constrained optimal control 
+# problems. 
+# {\it Hungarian Journal of Industrial Chemistry}, 
+# Vol. 19, pp. 245-â€“254, 1991.
+
+StateVariables          = [y1, y2];
+ControlVariables        = [u1];
+InitialConstraints      = [y1 - 1, y2];
+TerminalPenalty         = y2;
+DifferentialEquations   = [u1, y1*y1 + u1*u1];
+StateEstimate           = [1 + t, t*(t-1)];
+ControlEstimate         = [0.1];
+InitialTime             = 0;
+FinalTime               = 1;
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex72.data";
+MaximumNodes            = 1000;

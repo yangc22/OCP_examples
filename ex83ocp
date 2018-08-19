@@ -1,0 +1,26 @@
+# J.SPEYER AND A.BRYSON,JR.,Optimal programming problems with a bounded state space,
+# AIAA J., 6 (1968), pp. 1488-1491.
+
+StateVariables          = [y1, y2, y3, y4];
+ControlVariables        = [u1];
+InitialConstraints      = [y1 - 1.6, y2 + 1, y3, y4];
+TerminalConstraints     = [y1, y2 + 1, y3];
+CostFunctional          = u1*u1*0.5;
+DifferentialEquations   = [y2, y3, u1, 1];
+
+StateVariableInequalityConstraints    = [-(y2 - (-4.0*y4*y4 + 12.0*y4 - 8.0))];
+
+StateEstimate           = [1.6 - 1.6*t/3.0, -1 + t*(3-t), t*(3-t), t];
+ControlEstimate         = [t/3.0];
+
+InitialTime             = 0.0;
+FinalTime               = 3.0;
+
+Nodes                   = 101;
+
+MaximumMeshRefinements  = 20;
+MaximumNodes            = 1000;
+
+Tolerance               = 1.0e-6;
+OutputFile              = "ex83.data";
+Display                 = NO;

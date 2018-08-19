@@ -1,0 +1,25 @@
+# Hartl, R., Sethi, S. and Vikson, R., A survey of the maximum principles
+# for optimal control problems with state constraints,
+# SIAM Review, Vol. 37, pp. 181--218, 1995
+
+StateVariables          = [x];
+ControlVariables        = [u];
+InitialConstraints      = [x - 1];           
+TerminalConstraints     = [x - 1];
+CostFunctional          = u*u - 10*x*x;
+DifferentialEquations   = [x*x - u];
+StateVariableInequalityConstraints = [x - 1.5];
+InitialTime             = 0.0;
+FinalTime               = 1.0;
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+
+OutputFile              = "ex105.data";
+MaximumNodes            = 2000;
+Display                 = NO;
+MaximumNewtonIterations = 500;
+MaximumMeshRefinements  = 20;
+
+StateEstimate           = [1-t];
+ControlEstimate         = [0.1];

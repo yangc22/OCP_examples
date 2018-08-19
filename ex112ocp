@@ -1,0 +1,24 @@
+# van De Pol
+
+StateVariables          = [y1, y2];
+ControlVariables        = [u1];
+
+InitialTime             = 0.0;
+FinalTime               = 4.5;
+
+InitialConstraints      = [y1, y2 - 1];           
+CostFunctional          = 0.5*(y1*y1 + y2*y2);
+
+DifferentialEquations   = [y2, -y1 + y2*(1 - y1*y1) + u1];
+InequalityConstraints   = [u1 -1, -1 - u1];
+
+StateEstimate           = [-5, -5];
+ControlEstimate         = [1.0];
+
+Nodes                   = 201;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex112.data";
+Display                 = NO;
+MaximumNewtonIterations = 500;
+MaximumNodes            = 2500;
+MaximumMeshRefinements  = 20;

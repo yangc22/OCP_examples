@@ -1,0 +1,41 @@
+
+# Buskens, C. and  Maurer, H.,
+# SQP-methods for solving optimal control problems with control
+# and state constraints: adjoint variables, sensitivity analysis and
+# real-time control,
+# {\it Journal of Computational and Applied Mathematics},
+# Vol. 120, pp. 85--108, 2000.
+# same as ex40ocp but with different CVIC
+Variables               = [a, p1];
+Constants               = [ru=62.5, pr=0.0];
+StateVariables          = [x1, x2, x3, x4];
+ControlVariables        = [u1];
+ParameterVariables      = [w];
+InitialTime             = 0.0;
+FinalTime               = 1.0;
+InitialConstraints      = [x1 - 6, x2, x3 - sqrt(ru/6.0), x4];
+TerminalConstraints     = [x1 - 6.6, x2, x3-sqrt(ru/x1)];
+
+p1 = (w + 20);
+
+TerminalPenalty         = (w + 20);
+
+
+a = (0.01+pr);
+
+DifferentialEquations   = [(w + 20)*x2, (w + 20)*(x3*x3/x1-ru/(x1*x1)+(0.01+pr)*sin(u1)), (w + 20)*(-x2*x3/x1+(0.01+pr)*cos(u1)), (w + 20)*(x3/x1)];
+InequalityConstraints   = [u1 - 0.65, -0.65 - u1, -(w + 20)];
+#InequalityConstraints   = [u1 - 0.8, -0.8 - u1, -(w + 20)];
+InputFile				= "ex39.data";
+
+#StateEstimate           = [6 + 0.6*t, 0.01*t*(1-t), 3.2275*(1-t) + 3.0773*t, 9.0*t];
+#ControlEstimate         = [0.01];
+ParameterEstimate       = [0];
+
+OutputFile				= "ex213.data";
+
+Nodes					= 101;
+Tolerance				= 1.0e-6;
+Display					= NO;
+MaximumNodes            = 2500;
+MaximumMeshRefinements  = 25;

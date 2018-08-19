@@ -1,0 +1,19 @@
+
+StateVariables          = [x1, x2];
+ControlVariables        = [u1];
+InitialConstraints      = [x1 - 1, x2];           
+TerminalConstraints     = [x1 + 1, x2];
+CostFunctional          = u1*u1*0.5;
+DifferentialEquations   = [u1, x1];
+StateVariableInequalityConstraints = [x2 - 0.12];
+
+StateEstimate           = [1 - 2*t, 0.1*t*(1-t)];
+ControlEstimate         = [1];
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex31.data";
+#Display                = YES;
+Display                 = NO;
+MaximumMeshRefinements  = 25;
+MaximumNodes            = 2000;

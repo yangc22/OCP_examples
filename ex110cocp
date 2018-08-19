@@ -1,0 +1,37 @@
+# H. Maurer: Numerical solution of singular control problems using multiple shooting techniques
+# Journal Optimization Theory and Applications, Vol. 18, pp. 235--257
+# Example 7.2
+Variables               = [D, g, tau];
+Constants               = [g0 = 9.81, r0 = 6.371e6, Fmax = 9.52551,c = 2060, alpha = 0.01227, bb = 0.145e-3,m0  = 67.9833, mf = 214.839];
+StateVariables          = [h, v, m];
+ControlVariables        = [u];
+ParameterVariables      = [p];
+
+tau = (p + 216);
+
+InitialConstraints      = [h, v, m - m0];           
+#TerminalConstraints     = [m - mf];
+TerminalPenalty         = p*p;# + h*h + (m - mf)*(m - mf);
+#TerminalPenalty         = -h;
+
+#TerminalPenalty        = (h - 150)*(h -150);
+CostFunctional          = (p + 216)*(0 + (u*u + v*v + m*m + h*h));
+#CostFunctional          = (p + 216)*(0 + (u*u + v*v + m*m));
+
+D = (alpha*v*v*exp(-bb*h));
+g = (g0);
+
+DifferentialEquations   = [(p + 216)*v, ((p + 216)/m)*(u*c - (alpha*v*v*exp(-bb*h))) - (p + 216)*(g0), -(p + 216)*u];
+#InequalityConstraints   = [u-Fmax, -u]; #, -tau];
+
+ParameterEstimate       = [0];
+
+InitialTime             = 0;
+FinalTime               = 1;
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+InputFile               = "ex110.data";
+OutputFile              = "ex110c.data";
+Display                 = NO;
+MaximumNewtonIterations = 1000;
+MaximumNodes            = 1000;

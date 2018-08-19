@@ -1,0 +1,36 @@
+# 
+Constants               = [pi = 3.14159265358979,mu = 0.1407654e17,rho0 = 0.002378,Re = 20902900,hr = 23800,S = 2690,m = 6309.44,a0 = -0.20704,a1 = 0.029244,b0 = 0.07854,b1 = -0.61592e-2,b2 = 0.621408e-3,c0 = 1.06723181,Tf = 2000];
+Variables               = [rho, g, L, D, cL, cD, alpha_hat];
+StateVariables          = [h, v, gamma, theta, psi];
+ControlVariables        = [alpha, beta];
+InitialConstraints      = [h-260000, v-25600, gamma+1*pi/180.0, theta, psi-pi*0.5];
+#TerminalConstraints     = [h-80000, v-2500,  gamma+5*pi/180.0];   
+#TerminalPenalty         = -theta;
+TerminalPenalty         = -theta + ((h-80000)*(h-80000) + (v-2500)*(v-2500) + (gamma+5*pi/180.0)*(gamma+5*pi/180.0));
+CostFunctional          = Tf*0.5*(alpha*alpha + beta*beta);
+
+g = (mu/((Re + h)*(Re + h)));
+rho = (rho0*exp(-h/hr));
+alpha_hat = (180.0*alpha/pi);
+cL = (a0 + a1*(180.0*alpha/pi));
+cD = (b0 + b1*(180.0*alpha/pi) + b2*(180.0*alpha/pi)*(180.0*alpha/pi));
+L = (0.5*(a0 + a1*(180.0*alpha/pi))*S*(rho0*exp(-h/hr))*v*v);
+D = (0.5*(b0 + b1*(180.0*alpha/pi) + b2*(180.0*alpha/pi)*(180.0*alpha/pi))*S*(rho0*exp(-h/hr))*v*v);
+
+DifferentialEquations   = [ Tf*v*sin(gamma),Tf*(-(0.5*(b0 + b1*(180.0*alpha/pi) + b2*(180.0*alpha/pi)*(180.0*alpha/pi))*S*(rho0*exp(-h/hr))*v*v)/m - (mu/((Re + h)*(Re + h)))*sin(gamma)),Tf*(((0.5*(a0 + a1*(180.0*alpha/pi))*S*(rho0*exp(-h/hr))*v*v)/(m*v))*cos(beta) + cos(gamma)*(v/(Re + h) - (mu/((Re + h)*(Re + h)))/v)),Tf*((v/(Re + h))*cos(gamma)*cos(psi)), Tf*(((0.5*(a0 + a1*(180.0*alpha/pi))*S*(rho0*exp(-h/hr))*v*v)/(m*v*cos(gamma)))*sin(beta) + (v/(Re+h))*cos(gamma)*sin(psi)*sin(theta))];
+InitialTime = 0.0;
+FinalTime = 1.0;
+#ControlEstimate = [18*pi/180.0, -80*pi/180.0 - t*(-80*pi/180)];
+#StateEstimate = [260000 - t*(260000-80000), 
+#                 25600 - t*(25600-2500), 
+#                -1*pi/180.0 - t*(-1*pi/180.0 +5*pi/180.0), 
+#                pi*t,
+#                pi*0.5*(1+t)];
+ControlEstimate = [18*pi/180.0, -80*pi/180.0 - t*(-80*pi/180)];
+StateEstimate = [260000, 25600, -1*pi/180.0 , 0,pi*0.5];
+                
+Nodes                   = 501;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex108.data";
+Display                 = YES;
+MaximumNodes            = 1000;

@@ -1,0 +1,23 @@
+# Inexact Restoration for Euler Discretization
+# of Box-Constrained Optimal Control Problems
+# Nahid Banihashemi · C. Yalçın Kaya
+# J Optim Theory Appl (2013) 156:726–760
+# DOI 10.1007/s10957-012-0140-4
+Constants               = [alpha = 0.2, pi = 3.14159265358979];
+StateVariables          = [x1, x2, x3, x4, x5, x6];
+ControlVariables        = [u1, u2];
+InitialConstraints      = [x1 + 10, x2 + 10, x3 - pi/2.0, x4, x5, x6];
+#TerminalConstraints     = [x1, x2, x3, x4, x5, x6];
+TerminalPenalty         = (x1*x1 + x2*x2 + x3*x3 + x4*x4 + x5*x5 + x6*x6)/0.1;
+CostFunctional          = 1.0e3*(u1*u1 + u2*u2);
+DifferentialEquations   = [x4, x5, x6, (u1+u2)*cos(x3), (u1+u2)*sin(x3), alpha*(u1-u2)];
+#InequalityConstraints   = [u1 - 0.8, -0.8 - u1, u2 - 0.4, -0.4 - u2];
+Tolerance               = 1.0e-6;
+FinalTime               = 12;
+StateEstimate           = [-10 + t*10/12, -10 + t*10/12, pi/2 + t*(pi/2)/12, t*(t-12), t*(t-12), t*(t-12)];
+ControlEstimate         = [0.7 - t*1.4/12, 0.3 - t*0.6/12];
+OutputFile              = "ex207a.data";
+Nodes                   = 121;
+Display                 = NO;
+MaximumNodes            = 1000;
+MaximumMeshRefinements  = 20;

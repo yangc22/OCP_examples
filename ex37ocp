@@ -1,0 +1,28 @@
+# Edge, E. R. and Powers, W. F.,
+# Optimal Control Problems with Bounded Controls and Singular Arcs,
+# {\it Journal of Optimization Theory and Applications},
+# Vol. 20, pp. 455-479, 1976.
+
+#Constants                = [rho = 1.0e-5];
+
+StateVariables          = [x];
+ControlVariables        = [u];
+
+InitialTime             = 0.0;
+FinalTime               = 2.0;
+
+InitialConstraints      = [x - 1.0];           
+TerminalConstraints     = [x - 0.5];
+CostFunctional          = x*x; # + 0.5*rho*u*u;
+DifferentialEquations   = [u];
+InequalityConstraints   = [u - 1.0, -1.0 - u];
+
+StateEstimate           = [1 - 0.25*t];
+ControlEstimate         = [0];
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex37.data";
+Display                 = NO;
+MaximumMeshRefinements  = 25;
+MaximumNodes            = 2000;

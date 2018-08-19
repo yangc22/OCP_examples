@@ -1,0 +1,29 @@
+
+# Teo, K. L., Goh, C. J. and Wong, K. H.,
+# {\em A unified computational approach to optimal control problems}, 
+# Longman Scientific, 1991. 
+
+Variables               = [pa];
+Constants               = [a=2.0, V=3.0, y1e=5.0];
+StateVariables          = [x, ya, ua, v];
+ParameterVariables      = [p];
+ControlVariables        = [g];
+InitialConstraints      = [x, ya, ua, v];
+
+pa                      = (p+10);
+
+TerminalConstraints     = [ya - y1e, x - V*(p+10)];
+
+#TerminalPenalty         = pa;
+CostFunctional          = (p+10)*(1.0e3 + g*g);
+
+
+DifferentialEquations   = [(p+10)*ua, (p+10)*v, (p+10)*a*cos(g), (p+10)*a*sin(g)];
+#InequalityConstraints   = [-pa];
+
+Tolerance               = 1.0e-6;
+InputFile               = "ex45.data";
+OutputFile              = "ex46.data";
+MaximumNodes            = 2000;
+Display                 = NO;
+#MaximumMeshRefinements  = 20;

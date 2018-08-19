@@ -1,0 +1,40 @@
+
+Constants               = [pi = 3.14159265358979,E = 3.24, CL = 0.45,rnose = 0.1, kd = 30748,S = 0.48387, m = 907.186,b = 0.00015, rhosl = 1.225,gsl = 9.8066352, Rsl = 6378e3,Qdmax = 4500, T = 6];
+
+Variables               = [CB, KQ];
+
+CB = (0.5*rhosl*Rsl*S*CL / m);
+KQ = (kd / (sqrt(rnose)*Qdmax));
+
+#ParameterVariables      = [T];
+
+StateVariables          = [x1, x2, x3, x4];
+
+ControlVariables        = [u];
+
+InitialConstraints      = [x1 - 2.0e5/Rsl,x2 - 7100 / sqrt(Rsl*gsl),x3 - pi/36,x4];
+                            
+#TerminalConstraints     = [x1];
+TerminalPenalty         = x1*x1;
+
+CostFunctional          = T*(1 + u*u + x1*x1 + x2*x2 + x3*x3 + x4*x4);
+
+DifferentialEquations   = [T*x2*sin(x3),T*(((0.5*rhosl*Rsl*S*CL / m)/(-2*E))*exp(-b*Rsl*x1)*(1+u*u)*x2*x2 - sin(x3)/((x1+1)*(x1+1))),T*((0.5*rhosl*Rsl*S*CL / m)*exp(-b*Rsl*x1)*u*x2 - cos(x3)/(x2*(x1+1)*(x1+1)) + x2*cos(x3)/(x1+1)),T*x2*cos(x3)/(x1+1)];
+
+InequalityConstraints = [u-2, -u];
+StateVariableInequalityConstraints = [(kd / (sqrt(rnose)*Qdmax))*exp(-0.5*b*Rsl*x1)*x2*x2*x2 - 1];
+
+Tolerance               = 1.0e-6;
+
+StateEstimate           = [0.2 - 0.2*t, 6 - 6*t, .1 - .1*t, -t*(t-1)];
+ControlEstimate         = [.001];
+#ParameterEstimate       = [6];
+
+#InputFile               = "ex205.data";
+
+OutputFile              = "ex205.data";
+Nodes                   = 101;
+Display                 = NO;
+MaximumNodes            = 1000;
+MaximumMeshRefinements  = 20;
+ 

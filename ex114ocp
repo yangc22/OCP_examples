@@ -1,0 +1,29 @@
+# R-P robot
+Constants               = [m = 40, I = 0.24, pi = 3.14159265358979];
+StateVariables          = [x1, x2, x3, x4];
+ControlVariables        = [F, T];
+ParameterVariables      = [tau];
+
+InitialTime             = 0;
+FinalTime               = 1;
+
+InitialConstraints      = [x1 - 0.75, x2, x3, x4];
+CostFunctional          = tau*(1.0 + 0.001*(F*F + T*T));
+#CostFunctional         = tau;
+
+DifferentialEquations   = [ tau*x3,tau*x4,tau*(F + m*x1*x4*x4)/m,tau*(T - 2*m*x1*x3*x4)/(I + m*x1*x1)];
+InequalityConstraints   = [(-5 - F), (F - 5), (-300 - T), (T - 300)]; 
+#TerminalConstraints     = [x1 - 0.5, x2 - pi/10.0, x3, x4];
+#TerminalConstraints     = [x1 - 0.25, x2 - pi/10.0, x3, x4];
+TerminalConstraints     = [x1, x2 - pi/10.0, x3, x4];
+StateEstimate           = [0.75 - 0.5*t, t*(1-t), t*(1-t), t*(1-t)];
+ControlEstimate         = [-4, -5];
+ParameterEstimate       = [5];
+
+Nodes                   = 201;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex114.data";
+Display                 = NO;
+MaximumNewtonIterations = 1000;
+MaximumNodes            = 1000;
+MaximumMeshRefinements  = 20;

@@ -1,0 +1,36 @@
+#Optimization methods for solving bang-bang control problems with
+#state constraints and the verification of sufficient conditions
+#Helmut Maurer, Inga Altrogge, Nadine Goris
+# Proceedings of the
+#44th IEEE Conference on Decision and Control, and
+#the European Control Conference 2005
+#Seville, Spain, December 12-15, 2005
+
+Constants               = [alpha = 1.7, r1 = 6.94, r2 = 3.94, a1 = 0.197, a2 = 0.356, x10 = 0.86, x20 = 0.55, tf = 10];
+
+StateVariables          = [x1, x2, x3];
+ControlVariables        = [u];
+InitialConstraints      = [x1-x10, x2-x20, x3];
+TerminalPenalty         = r1*x1 + r2*x2 + x3;
+DifferentialEquations   = [-a1*x1 + 2*(1-u)*a2*x2, a1*x1 - a2*x2, u];
+
+CostFunctional = u*u*0.1 + u;
+
+InequalityConstraints   = [-u, u-1];
+
+#StateVariableInequalityConstraints = [x1 + x2 - alpha];
+
+FinalTime               = 10;
+
+StateEstimate           = [x10*(1-t/10), x20*(1-t/10), t/10];
+ControlEstimate         = [t/10];
+
+InputFile              = "ex208a0.data";
+OutputFile              = "ex208a.data";
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+
+Display                 = NO;
+MaximumNodes            = 1000;
+MaximumMeshRefinements  = 20;

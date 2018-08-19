@@ -1,0 +1,21 @@
+# Teo, K. L., Goh, C. J. and Wong, K. H.,
+# A unified computational approach to optimal control problems,
+# Longman Scientific, 1991.
+
+Constants               = [pi = 3.14159265358979, p = 5.0];
+
+StateVariables          = [x1, x2, x3];
+ControlVariables        = [u];
+InitialConstraints      = [x1 - 4.0, x2, x3 - pi/2.0];
+TerminalPenalty         = x1*x1 + x2*x2;
+DifferentialEquations   = [p*cos(x3), p*sin(x3), p*u];
+
+CostFunctional          = p*0.5*u*u;
+
+StateEstimate           = [4.0 - 4.0*t, t*(1-t), pi/2.0 + t];
+ControlEstimate         = [0.25*pi*(t + 1)];
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex13a.data";
+Display                 = NO;

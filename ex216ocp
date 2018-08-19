@@ -1,0 +1,29 @@
+
+# Silva and Trelat, Smooth regularization of bang-bang optimal control problems 
+# IEEE Transaction on Automatic Control, vol 55, no 11, 2010, pp. 2488-2499
+
+StateVariables 			= [x1, x2];
+ControlVariables 		= [u];
+ParameterVariables 		= [p];
+
+InitialTime				= 0;
+FinalTime				= 1;
+
+InitialConstraints 		= [x1, x2];
+TerminalConstraints 	= [x1 - 1, x2];
+CostFunctional 			= p;
+
+DifferentialEquations 	= [p*(1 - x2*x2),  p*u];
+InequalityConstraints	= [u - 1, -1 - u];
+
+StateEstimate			= [t, 0];
+ControlEstimate			= [0];
+ParameterEstimate		= [1];
+
+OutputFile				= "ex216.data";
+
+Nodes					= 101;
+Tolerance				= 1.0e-6;
+Display					= NO;
+MaximumNodes            = 2500;
+MaximumMeshRefinements  = 25;

@@ -1,0 +1,13 @@
+
+StateVariables 			= [x1, x2];
+ControlVariables 		= [u1];
+InitialConstraints 		= [x1 - 1.0, x2 + 1.0];
+TerminalConstraints 	= [x1, x2];
+CostFunctional 			= u1*u1*0.5;
+#TerminalPenalty         = x1*x1;
+DifferentialEquations 	= [x2, u1];
+StateVariableInequalityConstraints = [-5/4 - x2];
+Nodes					= 101;
+Tolerance				= 1.0e-6;
+OutputFile				= "ex2svic.data";
+Display					= NO;

@@ -1,0 +1,26 @@
+
+# Maurer Tutorial on control and state constrained optimal control
+#
+
+StateVariables 			= [x1, x2];
+ControlVariables 		= [u];
+
+InitialTime				= 0;
+FinalTime				= 4;
+
+InitialConstraints 		= [x1, x2-1];
+CostFunctional 			= x1*x1 + x2*x2;
+
+DifferentialEquations 	= [x2, -x1 + x2*(1-x2*x2) + u];
+InequalityConstraints	= [u-1, -1 - u];
+
+StateEstimate			= [1, -1];
+ControlEstimate			= [-1 + 2.0*t/4.0];
+
+OutputFile				= "ex215.data";
+
+Nodes					= 101;
+Tolerance				= 1.0e-6;
+Display					= NO;
+MaximumNodes            = 2500;
+MaximumMeshRefinements  = 25;

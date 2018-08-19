@@ -1,0 +1,30 @@
+Constants               = [pi = 3.14159265358979, r1 = 0.4, r2 = 0.3];
+Variables               = [x1, y1, x2, y2];
+StateVariables          = [q1, q2, f1, f2];
+ControlVariables        = [a1, a2];
+InitialConstraints      = [q1-pi, q2-pi, f1, f2];
+
+x1 = (r1*cos(q1));
+y1 = (r1*sin(q1));
+x2 = ((r1*cos(q1)) + r2*cos(q2));
+y2 = ((r1*sin(q1)) + r2*sin(q2));
+
+#TerminalConstraints     = [q1-2.480915447, q2-0.927295218, f1, f2];
+#TerminalConstraints     = [x2, y2-0.5, f1, f2];
+TerminalPenalty = ((r1*cos(q1)) + r2*cos(q2))*((r1*cos(q1)) + r2*cos(q2)) + (((r1*sin(q1)) + r2*sin(q2))-0.5)*(((r1*sin(q1)) + r2*sin(q2))-0.5) + f1*f1 + f2*f2;
+
+CostFunctional          = 0.5*(a1*a1 + a2*a2);
+DifferentialEquations   = [f1, f2, a1, a2];
+
+#StateEstimate           = [pi + t*(2.480915447-pi), 
+#                            pi + t*(0.927295218-pi), 
+#                            -t*(1-t), 
+#                            -t*(1-t)];
+#ControlEstimate         = [-0.1, -0.1];
+StateEstimate           = [pi, pi, 0, 0];
+ControlEstimate         = [0, 0];
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex201.data";
+Display                 = NO;

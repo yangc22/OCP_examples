@@ -1,0 +1,23 @@
+# F. Fahroo and I. Ross, Convergence of the costate does not imply convergence of the control,
+# Journal of Guidance control and dynamics, vol. 31, 2008
+
+StateVariables          = [y1, y2];
+ControlVariables        = [u1];
+InitialConstraints      = [y1, y2 - 1];           
+TerminalConstraints     = [y1 - 1, y2 - 1];
+CostFunctional          = y2*u1;
+DifferentialEquations   = [y2, -y2 + u1];
+InequalityConstraints   = [-u1, u1 - 2];
+StateVariableInequalityConstraints = [-y2];
+
+StateEstimate           = [t, 1 + t*(t-1)];
+ControlEstimate         = [t - 2*t];
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+
+OutputFile              = "ex100.data";
+MaximumNodes            = 500;
+Display                 = NO;
+MaximumNewtonIterations = 500;
+MaximumMeshRefinements  = 20;

@@ -1,0 +1,25 @@
+# check ref.: Junkins and Turner Optimal spacecraft rotational maneuvers, Elsevier, 1986
+#
+Constants               = [I1 = 86.24, I2 = 85.07, I3 = 113.59];
+StateVariables          = [x1, x2, x3];
+ControlVariables        = [u1, u2, u3];
+
+InitialTime             = 0.0;
+FinalTime               = 100;
+
+InitialConstraints      = [x1-0.01, x2-0.005, x3-0.001];           
+TerminalConstraints     = [x1, x2, x3];           
+CostFunctional          = 0.5*(u1*u1 + u2*u2 + u3*u3);
+
+DifferentialEquations   = [-((I3-I2)/I1)*x2*x3 + u1/I1, -((I1-I3)/I2)*x1*x3 + u2/I2, -((I2-I1)/I3)*x1*x2 + u3/I3];
+                           
+StateEstimate           = [0.01, 0.005, 0.001];
+ControlEstimate         = [1, 1, 1];
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex116.data";
+Display                 = NO;
+MaximumNewtonIterations = 500;
+MaximumNodes            = 2500;
+MaximumMeshRefinements  = 20;

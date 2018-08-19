@@ -1,0 +1,24 @@
+# Alt, W and Malanowski, The Lagrange-Newton Method for State
+# Constrained Optimal Control Problems
+# Computational Optimization and Application, pp. 217--239 1995
+
+StateVariables          = [x];
+ControlVariables        = [u];
+InitialConstraints      = [x - 4];           
+CostFunctional          = 0.5*(u*u + x*x*x);
+DifferentialEquations   = [u];
+StateVariableInequalityConstraints = [2 - x];
+InitialTime             = 0.0;
+FinalTime               = 1.0;
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+
+OutputFile              = "ex106.data";
+MaximumNodes            = 500;
+Display                 = NO;
+MaximumNewtonIterations = 500;
+MaximumMeshRefinements  = 20;
+
+StateEstimate           = [4 - t];
+ControlEstimate         = [-1 - t];

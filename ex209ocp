@@ -1,0 +1,31 @@
+# Shimizu, K. and Ito, S.,
+# Constrained optimization in Hilbert space and a generalized dual quasi-newton
+# algorithm for state-constrained optimal control problems,
+# IEEE Trans. AC, Vol. 39, pp. 982--986, 1994.
+#
+# This is like ex5ocp but without the SVIC, tf = 4, different BC,
+# |u| <= 1, and singular bang-bang control
+#
+StateVariables           = [x1, x2];
+ControlVariables         = [u];
+
+InitialTime              = 0.0;
+FinalTime                = 4.0;
+
+InitialConstraints       = [x1, x2 - 1];
+
+CostFunctional           = 0.5*(x1*x1 + x2*x2);
+
+DifferentialEquations    = [x2, -x1 + (1.0-x1*x1)*x2 + u];
+                          
+InequalityConstraints    = [-1 - u, u - 1];
+
+StateEstimate            = [0, 1];
+ControlEstimate          = [-0.5];
+
+Nodes                    = 101;
+Tolerance                = 1.0e-6;
+OutputFile               = "ex209sqp.data";
+Display                  = NO;
+MaximumMeshRefinements   = 0;
+MaximumNodes             = 2000;

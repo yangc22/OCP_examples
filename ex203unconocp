@@ -1,0 +1,30 @@
+# Homotopy Algorithm for Optimal Control Problems
+# with a Second-order State Constraint
+# Audrey Hermant
+# Appl Math Optim (2010) 61: 85–127
+
+Constants               = [gamma = 0.5];
+Variables               = [phi, tf];
+ParameterVariables      = [p];
+StateVariables          = [x, y, z];
+ControlVariables        = [u];
+
+InitialConstraints      = [x + 9, y, z];
+TerminalConstraints     = [x - 9, y, z];
+
+tf = (p + 18);
+
+CostFunctional          = (p + 18)*(1 + gamma*u*u);
+
+DifferentialEquations   = [(p + 18)*cos(z), (p + 18)*sin(z), (p + 18)*u];
+
+phi = 10*cos(0.2*x) - 0.002*x*x*x*x*sin(x-1.25);
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+
+StateEstimate           = [18*t-9, 0, -1.5];
+ControlEstimate         = [0.001];
+ParameterEstimate       = [0];
+
+OutputFile              = "ex203uncon.data";

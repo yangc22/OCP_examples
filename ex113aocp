@@ -1,0 +1,23 @@
+
+StateVariables           = [x1, x2, x3, x4];
+ControlVariables         = [u];
+
+InitialTime              = 0;
+FinalTime                = 1;
+
+InitialConstraints      = [x1, x2 + 1, x3 + 2.23606797749979, x4];           
+CostFunctional          = 1.0e3*u*u + x1*x1 + x2*x2 + 0.0005*(x2 + 16*x4 - 8 - 0.1*x3*u*u)*(x2 + 16*x4 - 8 - 0.1*x3*u*u);
+
+DifferentialEquations   = [ x2,-x3*u + 16*x4 - 8, u, 1];
+#InequalityConstraints   = [-4 - u, u - 10];
+
+StateEstimate           = [-0.2*t, -1 + t*(1-t)*2, -2.23606797749979 + 4*t, t];
+ControlEstimate         = [-5]; #[7 + 2.5*t];
+
+Nodes                   = 1001;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex113a.data";
+Display                 = NO;
+MaximumNewtonIterations = 1000;
+MaximumNodes            = 10000;
+MaximumMeshRefinements  = 20;

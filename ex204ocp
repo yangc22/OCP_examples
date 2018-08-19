@@ -1,0 +1,23 @@
+# Homotopy Algorithm for Optimal Control Problems
+# with a Second-order State Constraint
+# Audrey Hermant
+# Appl Math Optim (2010) 61: 85–127
+
+Constants               = [gamma = 0.5];
+Variables               = [phi];
+ParameterVariables      = [tf];
+StateVariables          = [x, y, z];
+ControlVariables        = [u];
+InitialConstraints      = [x + 9, y, z];
+TerminalConstraints     = [x - 9, y, z];
+CostFunctional          = tf*(1 + gamma*u*u);
+DifferentialEquations   = [tf*cos(z), tf*sin(z), tf*u];
+phi = (10*cos(0.2*x) - 0.002*x*x*x*x*sin(x-1.25));
+StateVariableInequalityConstraints = [(10*cos(0.2*x) - 0.002*x*x*x*x*sin(x-1.25)) - y];
+Tolerance               = 1.0e-6;
+ParameterEstimate       = [18];
+InputFile               = "ex203uncon.data";
+OutputFile              = "ex204.data";
+Display                 = NO;
+MaximumNodes            = 1000;
+MaximumMeshRefinements  = 20;

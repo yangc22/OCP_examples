@@ -1,0 +1,20 @@
+
+StateVariables          = [x1, x2];
+ControlVariables        = [u];
+InitialConstraints      = [x1, x2 - 1];
+TerminalConstraints     = [x1 - 0.065, x2 + 1.336];
+CostFunctional          = (x2*x2-x1*x1)/2.0;
+DifferentialEquations   = [x2, u];
+InequalityConstraints   = [u - 1, -1 - u];
+InitialTime             = 0.0;
+FinalTime               = 2.985;
+
+StateEstimate           = [0.065 - (t/2.985)*(1.336 + 0.65), 1 - t/2.985];
+ControlEstimate         = [0.1];
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex36.data";
+Display                 = NO;
+MaximumNodes            = 2000;
+MaximumMeshRefinements  = 25;

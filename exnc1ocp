@@ -1,0 +1,23 @@
+# control of a single link robot with a revolute joint
+#
+# (I + m*L*L/4) * omega1_dot = tau1
+#
+Constants               = [pi = 3.14159265358979, I = 0.1, m = 1, L = 1];
+StateVariables          = [theta1, omega1];
+ControlVariables        = [tau1];
+
+InitialConstraints      = [theta1, omega1];
+TerminalConstraints     = [theta1 - 1, omega1];
+
+CostFunctional          = 0.5*tau1*tau1;
+
+DifferentialEquations   = [omega1, tau1/(I + m*L*L*0.25)];
+
+StateEstimate           = [t*pi*0.3, t*(t-1)];
+ControlEstimate         = [t*(t-1)];
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+OutputFile              = "exnc1.data";
+MaximumMeshRefinements  = 20;
+MaximumNodes            = 500;

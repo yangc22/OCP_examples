@@ -1,0 +1,20 @@
+# Junkins, J. L., and Turner, J. D., Optimal Continuous Torque Attitude Maneuvers,
+# Journal of Guidance, Control, and Dynamics,
+# Vol. 3, No. 3, pp. 210--217, 1980.
+
+Constants               = [I1=1.0e6, I2=833333.0, I3=916667.0, T1S=550, T2S=50, T3S=550];
+StateVariables          = [e1, e2, e3, e4, w1, w2, w3];
+ControlVariables        = [T1, T2, T3];
+InitialConstraints      = [e1, e2, e3, e4-1.0, w1-0.01, w2-0.005, w3-0.001];
+TerminalPenalty         = w1*w1 + w2*w2 + w3*w3 + (e1-0.70106)*(e1-0.70106) + (e2-0.0923)*(e2-0.0923) + (e3-0.56098)*(e3-0.56098) + (e4-0.43047)*(e4-0.43047);
+CostFunctional             = 100.0*(T1*T1+T2*T2+T3*T3)*0.5;
+DifferentialEquations     = [0.5*(w1*e4-w2*e3+w3*e2)*100.0,0.5*(w1*e3+w2*e4-w3*e1)*100.0, 0.5*(-w1*e2+w2*e1+w3*e4)*100.0,-0.5*(w1*e1+w2*e2+w3*e3)*100.0,100.0*((I2-I3)*w2*w3+T1*T1S)/I1,100.0*((I3-I1)*w3*w1+T2*T2S)/I2,100.0*((I1-I2)*w1*w2+T3*T3S)/I3];
+StateEstimate           = [t*0.701606, t*0.0923, t*0.56098, t+1, t+0.01, t+0.005, t+0.001];
+ControlEstimate         = [t, t, t];
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex28.data";
+MaximumNodes            = 1000;
+Display                 = NO;
+MaximumNewtonIterations = 500;
+MaximumMeshRefinements  = 20;

@@ -1,0 +1,32 @@
+# O. von Stryk and R. Bulirsch, Direct and indirect methods for trajectory optimization
+# Annals of Operations Research vol. 37, pp. 357-373, 1992
+
+Constants           = [CD0 = 0.88, CDL = 0.52, CL0 = -0.505, rho0 = 2.3769e-3,R = 209.0352, Sm = 50000/2.0, g0 = 3.2172e-4, bb = 1.0/0.235,c = 20.0, N = 4.0, pi = 3.141592653,T = 400.0, _eps_ = 1.0e3];
+Variables           = [rho, CD, CL];
+StateVariables      = [v, e, z, g, q];
+ControlVariables    = [u];
+InitialConstraints  = [v - 0.35, e - 4.0/R, z, g + 5.75*pi/180.0, q];
+#TerminalConstraints = [v - 0.0165, e - 0.75530/R, z - 51.6912];
+#TerminalPenalty     = q;
+TerminalPenalty     = q + ((v - 0.0165)*(v - 0.0165) + (e - 0.75530/R)*(e - 0.75530/R) + (z - 51.6912)*(z - 51.6912)) * _eps_;
+
+rho = (rho0*exp(-bb*R*e));
+CD = (CD0 + CDL*cos(u));
+CL = (CL0*sin(u));
+
+#CostFunctional            = 1.0e-3*(u*u + v*v + e*e + z*z + g*g + q*q);
+CostFunctional            = 1.0*(u*u);
+
+DifferentialEquations = [T * (-Sm * (rho0*exp(-bb*R*e)) * v * v * (CD0 + CDL*cos(u)) - g0 * sin(g) / ((1.0 + e) * (1.0 + e))),T * (v * sin(g) / R),T * (v * cos(g) / (1.0 + e)),T * (Sm * (rho0*exp(-bb*R*e)) * v * (CL0*sin(u)) + v * cos(g) / (R * (1.0 + e)) - g0 * cos(g) / (v * (1.0 + e) * (1.0 + e))),T * (c * v * v * v * sqrt((rho0*exp(-bb*R*e)) / N))];
+#StateEstimate  = [0.35 - t*(0.35 - 0.0165),
+#                    4.0/R - t*(4.0/R - 0.75530/R),
+#                    t * 51.6912,
+#                  -5.75*pi/180 - t*(-5.75*pi/180 + 26.237124*pi/180.0),
+#                    t];
+#ControlEstimate         = [1-3*t];
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+InputFile              = "ex55a.data";
+OutputFile              = "ex55b.data";
+MaximumNodes            = 10000;
+Display = NO;

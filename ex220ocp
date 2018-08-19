@@ -1,0 +1,22 @@
+#
+
+StateVariables          = [x, y, z];
+ControlVariables        = [u];
+ParameterVariables      = [p];
+InitialConstraints      = [x-1, y, z];           
+CostFunctional          = p*(x*x);
+DifferentialEquations   = [p*y, p*z, p*u];
+InequalityConstraints   = [u - 1, -1 - u, -p];
+InitialTime             = 0.0;
+FinalTime               = 1.0;
+
+StateEstimate           = [t*(1-t), t*(1-t), 1 - t];
+ControlEstimate         = [0.01*t*(1-t)];
+ParameterEstimate       = [6];
+
+Nodes                   = 601;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex220.data";
+Display                 = NO;
+MaximumNodes            = 2000;
+MaximumMeshRefinements  = 25;

@@ -1,0 +1,39 @@
+
+# Buskens, C. and  Maurer, H.,
+# SQP-methods for solving optimal control problems with control 
+# and state constraints: adjoint variables, sensitivity analysis and 
+# real-time control,
+# {\it Journal of Computational and Applied Mathematics},
+# Vol. 120, pp. 85--108, 2000.
+
+Variables               = [a];
+Constants               = [ru=62.5, pr=0.0, p1=20.0];
+StateVariables          = [x1, x2, x3, x4];
+ControlVariables        = [u1];
+
+InitialTime             = 0.0;
+FinalTime               = 1.0;
+
+InitialConstraints      = [x1 - 6,   x2, x3 - sqrt(ru/6.0), x4];
+
+#TerminalConstraints     = [x1 - 6.6, x2, x3 - sqrt(ru/x1)];
+
+TerminalPenalty         = x2*x2 + (x3-sqrt(ru/x1))*(x3-sqrt(ru/x1)) + (x1 - 6.6)*(x1 - 6.6);
+
+a = (0.01+pr);
+
+CostFunctional          = 1.0e3*u1*u1; # + x1*x1 + x2*x2 + x3*x3 + x4*x4;
+
+DifferentialEquations   = [p1*x2,p1*(x3*x3/x1-ru/(x1*x1)+(0.01+pr)*sin(u1)),p1*(-x2*x3/x1+(0.01+pr)*cos(u1)),p1*(x3/x1)];
+                            
+#InequalityConstraints   = [u1 - 1.5, -1.5 - u1];
+
+StateEstimate           = [6 + 0.6*t, 0.01*t*(1-t), 3.2275*(1-t) + 3.0773*t, 9.0*t];
+ControlEstimate         = [0.01];
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex39.data";
+Display                 = NO;
+MaximumMeshRefinements  = 20;
+MaximumNodes            = 2500;

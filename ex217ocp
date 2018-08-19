@@ -1,0 +1,34 @@
+# J Bonnans and A Hermant
+# Stability and Sensitivity Analysis for Optimal Control Problems
+# with a First-order State Constraint and Application to
+# Continuation Methods, 2007
+# 
+
+Constants               = [g0 = 10, c = 0.1, alpha = 31.4159265358979, h = -0.001];
+Variables               = [g];
+StateVariables 			= [x1, x2];
+ControlVariables 		= [u];
+
+InitialTime				= 0;
+FinalTime				= 1;
+
+InitialConstraints 		= [x1, x2];
+#TerminalConstraints 	= [x1, x2-1];
+TerminalConstraints 	= [x1]; #TerminalPenalty = x1*x1/2;
+
+g = (g0*(c - sin(alpha*x2)));
+
+CostFunctional 			= u*u/2 + (g0*(c - sin(alpha*x2)))*x1;
+DifferentialEquations 	= [u, 1];
+StateVariableInequalityConstraints = [h - x1];
+
+StateEstimate			= [0, t];
+ControlEstimate			= [0];
+
+OutputFile				= "ex217.data";
+
+Nodes					= 101;
+Tolerance				= 1.0e-6;
+Display					= NO;
+MaximumNodes            = 2500;
+MaximumMeshRefinements  = 25;

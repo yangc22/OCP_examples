@@ -1,0 +1,28 @@
+# Marchal, chattering arcs and chatering controls,
+# Journal of Optimization Theory Applications and Methods, vol. 11, pp 441-468, 1973 (check)
+# Journal of Optimization Theory Applications and Methods, vol. 15, pp 633-666, 1975 (check)
+# Full-Marchel 
+# p 118
+
+StateVariables 			= [x, y];
+ControlVariables 		= [u];
+
+InitialTime				= 0;
+FinalTime				= 8;
+
+InitialConstraints 		= [x - 2, y + 2];
+TerminalConstraints 	= [x - 2, y - 2];
+CostFunctional 			= x*x;
+DifferentialEquations 	= [y, u];
+InequalityConstraints   = [u - 1, -1 -u];
+
+StateEstimate			= [2, -2 + 4*t/8];
+ControlEstimate			= [2];
+
+OutputFile				= "ex218.data";
+
+Nodes					= 101;
+Tolerance				= 1.0e-6;
+Display					= NO;
+MaximumNodes            = 2500;
+MaximumMeshRefinements  = 25;

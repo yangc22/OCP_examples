@@ -1,0 +1,21 @@
+# Journal of Computational and Applied Mathematics 251 (2013) 93–116
+# Fast, accurate, and small-scale direct trajectory optimization
+# using a Gegenbauer transcription method
+# Kareem T. Elgindy a,b, ∗ , Kate A. Smith-Miles a
+# a School of Mathematical Sciences, Monash University, Clayton Victoria 3800, Australia
+# b Mathematics Department, Faculty of Science, Assiut University, Assiut 71516, Egypt
+
+StateVariables 			= [x1, x2, x3];
+ControlVariables 		= [u];
+InitialConstraints 		= [x2-1,x3];
+TerminalConstraints 	= [x1];
+TerminalPenalty         = x3; 
+DifferentialEquations 	= [x2,-0.032*x2 -0.16*x1 + 1.6*u, x1*x1*x1*x1 + x2*x2*x2*x2 + u*u*u*u];
+CostFunctional          = 0.00001*u*u;
+Nodes					= 101;
+Tolerance				= 1.0e-6;
+OutputFile				= "ex210.data";
+Display					= NO;
+
+StateEstimate           = [-10*t, 1-t, 0];
+ControlEstimate         = [-10 + 10*t];

@@ -1,0 +1,24 @@
+# Jacobson, D, Gershwin, S. and Lele, M.,
+# Computation of Optimal Singular Controls
+# Jacobson, D. H.\ and Lele, M. M.,
+# {\em  IEEE Trans. AC},  Vol. 15, pp. 67--73, 1970.
+
+StateVariables          = [x1, x2];
+ControlVariables        = [u];
+InitialConstraints      = [x1, x2 - 1];           
+CostFunctional          = x1*x1 + x2*x2;
+DifferentialEquations   = [x2, u];
+InequalityConstraints   = [u - 1, -1 - u];
+InitialTime             = 0.0;
+FinalTime               = 5.0;
+
+StateEstimate           = [t*(1-t), 1 - t];
+ControlEstimate         = [0.01*t*(5-t)];
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex32.data";
+#Display                = YES;
+Display                 = NO;
+MaximumNodes            = 2000;
+MaximumMeshRefinements  = 25;

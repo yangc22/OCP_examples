@@ -1,0 +1,25 @@
+# Schwartz, A., {\it Theory and Implementation of Numerical Methods Based on
+# Runge-Kutta Integration for Solving Optimal Control Problems}
+# Ph.D. Thesis, University of California, Berkeley, 1996.
+
+InitialTime             = 0.0;
+FinalTime               = 2.69;
+
+#Constants               = [rho = 1.0];
+StateVariables 			= [x1, x2, x3];
+ControlVariables 		= [u1];
+InitialConstraints 		= [x1 - 1.0, x2 - 1.0, x3];
+TerminalPenalty 	    = 5.0*x1*x1 + x2*x2;
+DifferentialEquations 	= [x2, u1 - (1.0 + 2.0*x1*x1)*x2*0.1, 1.0];
+#InequalityConstraints   = [u1 - 2.83374, -2.83374 - u1, u2 - 0.71265, -0.80865 - u2];
+Nodes					= 201;
+Tolerance				= 1.0e-6;
+OutputFile				= "ex27.data";
+MaximumNodes            = 201;
+MaximumNewtonIterations = 500;
+Display					= NO;
+
+#	d(1)=(1.0-9*(x1-1.0)*(x1-1.0)-((x2-0.4)/0.3)*((x2-0.4)/0.3))*(tx<1.0?1.0:0.0);
+#	d(2)=(-0.8-x2)*(tx<1.0?1.0:0.0);
+#	d(3)=(u1-1.0)*(tx<1.0?1.0:0.0);
+#	d(4)=(-1.0-u1)*(tx<1.0?1.0:0.0);

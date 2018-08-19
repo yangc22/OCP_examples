@@ -1,0 +1,27 @@
+# D. F. Lawden, Analytical Methods of Optimization, 
+# Dover Publications, 2003, pp 86 -- 88.
+#p(1) = final time = 0.5*log(3) =  0.549306144334055
+#y(1) = 9*sinh(2*t)
+#u(1) = 6*cosh(2*t) + 12*sinh(2*t)
+
+StateVariables            = [y1, y2];
+ControlVariables         = [u];
+ParameterVariables       = [p];
+
+InitialTime              = 0.0;
+FinalTime                = 1.0;
+
+InitialConstraints       = [y1, y2];           
+TerminalConstraints      = [y1 - 12, y2 - 80];       
+CostFunctional           = p;
+
+DifferentialEquations    = [p*(-4*y1 + 3*u), p*u*(u - y1)];
+
+StateEstimate            = [9*sinh(2*t), 18*cosh(2*t)];
+ControlEstimate          = [6*cosh(2*t) + 12*sinh(2*t)];
+ParameterEstimate        = [0.5];
+
+Nodes                    = 101;
+Tolerance                = 1.0e-6;
+OutputFile               = "ex86.data";
+Display                  = NO;

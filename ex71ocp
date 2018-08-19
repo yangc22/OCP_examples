@@ -1,0 +1,20 @@
+# Dadebo, S. A. and McAuley, K. B.,
+# Dynamic optimization of constrained chemical engineering problems 
+# using dynamic programming. 
+# {\it Computers and Chemical Engineering}, 
+# {\bf 19}, pp. 513â€“-525, 1995.
+
+StateVariables          = [y1, y2];
+ControlVariables        = [u1];
+InitialConstraints      = [y1 - 1, y2];
+TerminalPenalty         = -y2;
+DifferentialEquations   = [-(u1+0.5*u1*u1)*y1, u1*y1];
+InequalityConstraints   = [u1 - 5, -u1];
+StateEstimate           = [1 + t, t];
+ControlEstimate         = [0.1];
+InitialTime             = 0;
+FinalTime               = 1;
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex71.data";
+MaximumNodes            = 1000;

@@ -1,0 +1,35 @@
+Constants               = [pi = 3.14159265358979,r1 = 0.4, r2 = 0.3,xc = -0.4, yc = 0.6, rc = 0.3,yd = -0.1];
+
+Variables               = [x1, y1, x2, y2, dx2xc, dy2yc, dc];
+
+StateVariables          = [q1, q2, f1, f2];
+ControlVariables        = [a1, a2];
+InitialConstraints      = [q1 - pi, q2 - pi, f1, f2];
+
+x1 = (r1*cos(q1));
+y1 = (r1*sin(q1));
+x2 = ((r1*cos(q1)) + r2*cos(q2));
+y2 = ((r1*sin(q1)) + r2*sin(q2));
+
+dx2xc = (((r1*cos(q1)) + r2*cos(q2)) - xc);
+dy2yc = (((r1*sin(q1)) + r2*sin(q2)) - yc);
+dc = sqrt((((r1*cos(q1)) + r2*cos(q2)) - xc)*(((r1*cos(q1)) + r2*cos(q2)) - xc) + (((r1*sin(q1)) + r2*sin(q2)) - yc)*(((r1*sin(q1)) + r2*sin(q2)) - yc));
+
+TerminalConstraints     = [((r1*cos(q1)) + r2*cos(q2)), ((r1*sin(q1)) + r2*sin(q2)) - 0.5, f1, f2];
+
+CostFunctional          = 0.5*(a1*a1 + a2*a2);
+DifferentialEquations   = [f1, f2, a1, a2];
+
+StateVariableInequalityConstraints = [rc - sqrt((((r1*cos(q1)) + r2*cos(q2)) - xc)*(((r1*cos(q1)) + r2*cos(q2)) - xc) + (((r1*sin(q1)) + r2*sin(q2)) - yc)*(((r1*sin(q1)) + r2*sin(q2)) - yc)), yd - ((r1*sin(q1)) + r2*sin(q2)), ((r1*sin(q1)) + r2*sin(q2)) - yc];
+
+StateEstimate           = [pi + t*(2.480915447-pi), pi + t*(0.927295218-pi),-t*(1-t), -t*(1-t)];
+
+ControlEstimate         = [-0.1, -0.1];
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+#InputFile               = "ex202uncon.data";
+OutputFile              = "ex202.data";
+
+Display                 = NO;
+MaximumNodes            = 2000;

@@ -1,0 +1,27 @@
+# van De Pol
+# check ref.: Jaddu Direct solution of nonlinear optimal control problems using quasilinearization and Chebyshev polynomials,
+#Journal of the Franklin Insitute, 339, 2002, 479-498
+#
+StateVariables          = [y1, y2];
+ControlVariables        = [u1];
+
+InitialTime             = 0.0;
+FinalTime               = 5;
+
+InitialConstraints      = [y1-1, y2];           
+TerminalConstraints     = [y1+1, y2];           
+CostFunctional          = 0.5*(y1*y1 + y2*y2 + u1*u1);
+
+DifferentialEquations   = [y2, -y1 + y2*(1 - y1*y1) + u1];
+InequalityConstraints   = [u1 -0.75, -0.75 - u1];
+
+StateEstimate           = [1, 0];
+ControlEstimate         = [1.0];
+
+Nodes                   = 101;
+Tolerance               = 1.0e-6;
+OutputFile              = "ex115.data";
+Display                 = NO;
+MaximumNewtonIterations = 500;
+MaximumNodes            = 2500;
+MaximumMeshRefinements  = 20;

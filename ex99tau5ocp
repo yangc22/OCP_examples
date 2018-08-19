@@ -1,0 +1,18 @@
+
+Constants               = [tau = 5.0];
+StateVariables          = [x];
+ControlVariables        = [u];
+InitialConstraints      = [x - 1.0];           
+TerminalConstraints     = [x - 1.0];       
+CostFunctional          = tau*(u*u + x*x)*0.5;
+DifferentialEquations   = [(-x*x*x + u)*tau];
+InitialTime             = 0.0;
+FinalTime               = 1.0;
+Nodes                   = 501;
+MaximumNodes            = 1000;
+Tolerance               = 1.0e-6;
+ControlEstimate         = [0];
+StateEstimate           = [0];
+OutputFile              = "ex99tau5.data";
+Display                 = NO;
+MaximumMeshRefinements  = 20;
